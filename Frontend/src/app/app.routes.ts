@@ -253,7 +253,7 @@ export const routes: Routes = [
           routerLink: ['admin/posts'],
           icon: 'pi pi-cog',
         },
-      ],
+      ], 
     },
   },
   {

@@ -71,7 +71,7 @@ export class PostListComponent {
         label: 'View Latest',
         icon: 'pi pi-video',
         onClick: () => {
-          this.router.navigate(['/hero']);
+          this.router.navigate(['/']);
         },
       },
     ],
