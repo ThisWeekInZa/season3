@@ -1,0 +1,27 @@
+<div class="app-container">
+  <app-header
+    [menuItems]="menuItems"
+    [profileItems]="profileItems"
+    [staticMenuItems]="staticMenuItems"
+  >
+  </app-header>
+
+  <div class="breadcrumb-container" *ngIf="breadcrumbItems.length > 0">
+    <p-breadcrumb
+      [model]="breadcrumbItems"
+      [home]="home"
+      [style]="{ border: 'none', background: 'transparent' }"
+    ></p-breadcrumb>
+  </div>
+
+  <main class="main-content">
+    <router-outlet></router-outlet>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <p>&copy; {{ currentYear }} THIS WEEK IN ZA. All rights reserved.</p>
+      <p class="version">v{{ version }}</p>
+    </div>
+  </footer>
+</div>

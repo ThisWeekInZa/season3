@@ -1,0 +1,203 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Pizza-themed color palette */
+:root {
+  --pizza-crust: #f5deb3;
+  --pizza-cheese: #ffd700;
+  --pizza-sauce: #e63946;
+  --pizza-pepperoni: #b22222;
+  --pizza-olive: #556b2f;
+  --pizza-text: #8b4513;
+  --pizza-accent: #ff6347;
+  
+  /* Original variables with new values */
+  --header-bg: var(--pizza-cheese);
+  --header-shadow: 0 2px 5px rgba(139, 69, 19, 0.3);
+  
+  /* Additional theme variables */
+  --body-bg: #fffaf0; /* Slightly off-white like pizza dough */
+  --primary-color: var(--pizza-sauce);
+  --secondary-color: var(--pizza-olive);
+  --text-color: var(--pizza-text);
+  --accent-color: var(--pizza-pepperoni);
+  --button-bg: var(--pizza-sauce);
+  --button-hover: var(--pizza-pepperoni);
+}
+
+/* Dark pizza theme */
+body.dark {
+  --pizza-crust: #8b4513;
+  --pizza-cheese: #b8860b;
+  --pizza-sauce: #800000;
+  --pizza-text: #ffd700;
+  
+  --header-bg: var(--pizza-cheese);
+  --header-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+  --body-bg: #2e2725; /* Dark wood like a pizza oven */
+  --text-color: #f5deb3; /* Light text for dark background */
+}
+
+/* Add theme toggle transition */
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  background-color: var(--body-bg);
+  color: var(--text-color);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--pizza-sauce);
+  font-weight: bold;
+}
+
+a {
+  color: var(--pizza-sauce);
+  text-decoration: none;
+  transition: color 0.2s ease;
+  
+  &:hover {
+    color: var(--pizza-pepperoni);
+    text-decoration: underline;
+  }
+}
+
+/* Fun pizza-themed scrollbar */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--pizza-crust);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--pizza-sauce);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--pizza-pepperoni);
+}
+
+/* PrimeNG component overrides */
+.p-button {
+  margin: 5px;
+  padding: 5px;
+  background-color: var(--button-bg) !important;
+  border-color: var(--button-bg) !important;
+  
+  &:hover {
+    background-color: var(--button-hover) !important;
+    border-color: var(--button-hover) !important;
+  }
+}
+
+/* Global button styles */
+.p-button.p-button-secondary {
+  color: white !important; /* Use !important to override any existing styles */
+}
+
+/* Ensure even the text and icon in secondary buttons are white */
+.p-button.p-button-secondary .p-button-label,
+.p-button.p-button-secondary .p-button-icon {
+  color: white !important;
+}
+
+.p-card {
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-top: 4px solid var(--pizza-sauce);
+}
+
+.p-toolbar {
+  background-color: var(--pizza-cheese) !important;
+  color: var(--pizza-text) !important;
+}
+
+.p-menubar {
+  background-color: var(--pizza-cheese) !important;
+  
+  .p-menuitem-link {
+    color: var(--pizza-text) !important;
+    
+    &:hover {
+      color: var(--pizza-sauce) !important;
+    }
+  }
+}
+
+/* Additional utility classes */
+.full-width {
+  width: 100%;
+}
+
+.auto-width {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Pizza-themed emphasis class */
+.pizza-highlight {
+  background: linear-gradient(to right, var(--pizza-cheese), var(--pizza-crust));
+  padding: 15px;
+  border-left: 5px solid var(--pizza-sauce);
+  border-radius: 4px;
+}
+
+/* Pizza-slice shaped buttons for important actions */
+.pizza-slice-btn {
+  clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+  background-color: var(--pizza-sauce);
+  width: 100px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s;
+  
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+/* Pizza loading spinner animation */
+.pizza-spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid var(--pizza-crust);
+  border-top: 5px solid var(--pizza-sauce);
+  border-radius: 50%;
+  animation: pizza-spin 1s linear infinite;
+}
+
+@keyframes pizza-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* YouTube link styling */
+.youtube-link {
+  color: var(--pizza-sauce);
+  text-decoration: none;
+  transition: color 0.2s ease;
+  font-size: 1.2rem;
+  
+  &:hover {
+    color: #ff0000;
+    transform: scale(1.1);
+  }
+}
+
+:root {
+  color-scheme: light; /* Forces light mode for browser defaults */
+}
+
+html {
+  background-color: #ffffff; /* Light mode background */
+  color: #000000; /* Light mode text color */
+}
