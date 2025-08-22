@@ -52,6 +52,42 @@ export class MockPostService {
       updatedAt: new Date(2023, 3, 13),
       image: '/images/E17.png',
     });
+
+    this.addMockEpisode({
+      title: 'AI Revolution in Africa',
+      guest1: 'Dr. Sarah Mkhize',
+      guest1UserId: 'user789',
+      description:
+        'Exploring how artificial intelligence is transforming industries across the African continent.',
+      youTubeLink: 'https://youtu.be/example1',
+      createdAt: new Date(2023, 2, 28),
+      updatedAt: new Date(2023, 2, 28),
+      image: '/images/E16.png',
+    });
+
+    this.addMockEpisode({
+      title: 'Startup Funding in SA',
+      guest1: 'Michael van der Merwe',
+      guest1UserId: 'user101',
+      description:
+        'Insights into the South African startup funding landscape and what investors are looking for.',
+      youTubeLink: 'https://youtu.be/example2',
+      createdAt: new Date(2023, 2, 15),
+      updatedAt: new Date(2023, 2, 15),
+      image: '/images/E15.png',
+    });
+
+    this.addMockEpisode({
+      title: 'Digital Transformation',
+      guest1: 'Lisa Pretorius',
+      guest1UserId: 'user202',
+      description:
+        'How South African businesses are adapting to the digital age and what the future holds.',
+      youTubeLink: 'https://youtu.be/example3',
+      createdAt: new Date(2023, 2, 1),
+      updatedAt: new Date(2023, 2, 1),
+      image: '/images/E14.png',
+    });
   }
 
   private addMockEpisode(episode: PostDto): string {

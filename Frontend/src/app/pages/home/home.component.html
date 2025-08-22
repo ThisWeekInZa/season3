@@ -1,5 +1,125 @@
 <div class="home-container">
-  <p-card>
-    <h2>THIS WEEK IN ZA</h2>
-  </p-card>
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <h1 class="hero-title">This Week In Za</h1>
+      <p class="hero-subtitle">Your weekly dose of tech insights, startup stories, and industry conversations from South
+        Africa</p>
+      <div class="hero-actions">
+        <button pButton label="Listen to Latest Episode" icon="pi pi-play" class="p-button-primary p-button-lg"
+          (click)="openYouTubeLink(featuredEpisodes[0]?.youTubeLink || '')"
+          [disabled]="!featuredEpisodes[0]?.youTubeLink">
+        </button>
+        <button pButton label="Browse All Episodes" icon="pi pi-list" class="p-button-outlined p-button-lg"
+          routerLink="/posts">
+        </button>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <img src="/images/hero.png" alt="This Week In Za" class="hero-image">
+    </div>
+  </section>
+
+  <!-- Featured Episodes Carousel -->
+  <section class="featured-section" *ngIf="!loading && featuredEpisodes.length > 0">
+    <div class="section-header">
+      <h2>Featured Episodes</h2>
+      <p>Latest conversations and insights</p>
+    </div>
+
+    <p-carousel [value]="featuredEpisodes" [numVisible]="3" [numScroll]="1" [circular]="true" [autoplayInterval]="5000"
+      class="featured-carousel">
+      <ng-template let-episode pTemplate="item">
+        <div class="episode-card featured-episode">
+          <div class="episode-image-container">
+            <img [src]="getEpisodeImage(episode)" [alt]="episode.title" class="episode-image">
+            <div class="episode-overlay">
+              <button pButton icon="pi pi-play" class="p-button-rounded p-button-lg play-button"
+                (click)="openYouTubeLink(episode.youTubeLink || '')" [disabled]="!episode.youTubeLink">
+              </button>
+            </div>
+          </div>
+          <div class="episode-content">
+            <h3 class="episode-title">{{ episode.title }}</h3>
+            <p class="episode-description">{{ episode.description }}</p>
+            <div class="episode-meta">
+              <span class="episode-date">{{ getEpisodeDate(episode) }}</span>
+              <p-tag *ngIf="episode.guest1" [value]="episode.guest1" severity="info" class="guest-tag">
+              </p-tag>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </p-carousel>
+  </section>
+
+  <!-- Recent Episodes Grid -->
+  <section class="recent-section" *ngIf="!loading && recentEpisodes.length > 0">
+    <div class="section-header">
+      <h2>Recent Episodes</h2>
+      <p>More great conversations to explore</p>
+    </div>
+
+    <div class="episodes-grid">
+      <div class="episode-card recent-episode" *ngFor="let episode of recentEpisodes">
+        <div class="episode-image-container">
+          <img [src]="getEpisodeImage(episode)" [alt]="episode.title" class="episode-image">
+          <div class="episode-overlay">
+            <button pButton icon="pi pi-play" class="p-button-rounded p-button-lg play-button"
+              (click)="openYouTubeLink(episode.youTubeLink || '')" [disabled]="!episode.youTubeLink">
+            </button>
+          </div>
+        </div>
+        <div class="episode-content">
+          <h3 class="episode-title">{{ episode.title }}</h3>
+          <p class="episode-description">{{ episode.description }}</p>
+          <div class="episode-meta">
+            <span class="episode-date">{{ getEpisodeDate(episode) }}</span>
+            <p-tag *ngIf="episode.guest1" [value]="episode.guest1" severity="info" class="guest-tag">
+            </p-tag>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="view-all-container">
+      <button pButton label="View All Episodes" icon="pi pi-arrow-right" class="p-button-outlined" routerLink="/posts">
+      </button>
+    </div>
+  </section>
+
+  <!-- Loading State -->
+  <section class="loading-section" *ngIf="loading">
+    <div class="loading-content">
+      <i class="pi pi-spin pi-spinner" style="font-size: 2rem; color: var(--primary-color);"></i>
+      <p>Loading episodes...</p>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="about-section">
+    <div class="about-content">
+      <h2>About This Week In Za</h2>
+      <p>Join us every week as we dive deep into the South African tech ecosystem. From startup founders to industry
+        leaders, we bring you authentic conversations about building, growing, and innovating in Africa's most dynamic
+        tech hub.</p>
+      <div class="about-features">
+        <div class="feature">
+          <i class="pi pi-users"></i>
+          <h3>Expert Guests</h3>
+          <p>Learn from successful entrepreneurs and industry experts</p>
+        </div>
+        <div class="feature">
+          <i class="pi pi-globe"></i>
+          <h3>Local Focus</h3>
+          <p>Stories and insights from the South African tech scene</p>
+        </div>
+        <div class="feature">
+          <i class="pi pi-lightbulb"></i>
+          <h3>Actionable Insights</h3>
+          <p>Practical advice you can apply to your own journey</p>
+        </div>
+      </div>
+    </div>
+  </section>
 </div>
