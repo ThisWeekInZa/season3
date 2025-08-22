@@ -1,5 +1,114 @@
 <div class="home-container">
-  <p-card>
-    <h2>THIS WEEK IN ZA</h2>
-  </p-card>
+  <!-- Hero Section -->
+  <div class="hero-section">
+    <h1 class="main-title">This Week in ZA</h1>
+    <h2 class="section-title">Latest Episode</h2>
+    
+    <div class="hero-content" *ngIf="latestEpisode">
+      <div class="video-container">
+        <img [src]="latestEpisode.item.image || '/images/placeholder.png'" 
+             [alt]="latestEpisode.item.title"
+             class="episode-thumbnail">
+      </div>
+      
+      <div class="episode-info">
+        <h3 class="episode-title">{{ latestEpisode.item.title }}</h3>
+        <div class="episode-meta">
+          <span class="guest-info">
+            <i class="pi pi-user"></i>
+            {{ latestEpisode.item.guest1 }}
+          </span>
+          <span class="date-info">
+            <i class="pi pi-calendar"></i>
+            {{ formatDate(latestEpisode.item.createdAt) }}
+          </span>
+        </div>
+        <p class="episode-description">{{ latestEpisode.item.description }}</p>
+        
+        <div class="hero-actions">
+          <p-button 
+            label="Watch on YouTube" 
+            icon="pi pi-youtube"
+            severity="danger"
+            size="large"
+            (onClick)="watchOnYoutube(latestEpisode)">
+          </p-button>
+          <p-button 
+            label="All Episodes" 
+            icon="pi pi-list"
+            severity="secondary"
+            size="large"
+            [outlined]="true"
+            (onClick)="viewAllEpisodes()">
+          </p-button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Episodes Section -->
+  <div class="episodes-section">
+    <div class="episodes-header">
+      <h2 class="episodes-title">This Week In ZA Episodes</h2>
+      <div class="search-container">
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input 
+            type="text" 
+            pInputText 
+            placeholder="Search episodes..."
+            [(ngModel)]="searchTerm"
+            (keyup.enter)="onSearch()"
+            class="search-input">
+        </span>
+      </div>
+    </div>
+
+    <div class="episodes-grid">
+      <div class="episode-card" *ngFor="let episode of episodes">
+        <div class="card-image">
+          <img [src]="episode.item.image || '/images/placeholder.png'" 
+               [alt]="episode.item.title"
+               class="episode-thumbnail">
+        </div>
+        
+        <div class="card-content">
+          <h3 class="card-title">{{ episode.item.title }}</h3>
+          <div class="card-meta">
+            <span class="guest-info">
+              <i class="pi pi-user"></i>
+              {{ episode.item.guest1 }}
+            </span>
+            <span class="date-info">
+              <i class="pi pi-calendar"></i>
+              {{ formatDate(episode.item.createdAt) }}
+            </span>
+          </div>
+          <p class="card-description">{{ episode.item.description }}</p>
+          
+          <div class="card-actions">
+            <p-button 
+              label="Watch on YouTube" 
+              icon="pi pi-youtube"
+              severity="danger"
+              size="small"
+              (onClick)="watchOnYoutube(episode)">
+            </p-button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination-container" *ngIf="totalRecords > rows">
+      <p-paginator
+        [rows]="rows"
+        [totalRecords]="totalRecords"
+        [first]="first"
+        (onPageChange)="onPageChange($event)"
+        [showCurrentPageReport]="true"
+        currentPageReportTemplate="{first} - {last} of {totalRecords}">
+      </p-paginator>
+    </div>
+  </div>
 </div>

@@ -33,6 +33,7 @@ export const routes: Routes = [
     canActivate: [authGuard],
     title: 'Notifications',
   },
+  { path: 'home', component: HomeComponent, title: 'This Week in ZA' },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   {
     path: 'authmicrosoft',
