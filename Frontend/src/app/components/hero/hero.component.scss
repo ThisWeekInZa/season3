@@ -1,0 +1,209 @@
+.hero-container {
+  width: 100%;
+  min-height: 500px;
+  background: linear-gradient(135deg, var(--primary-50) 0%, var(--primary-100) 100%);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+
+.hero-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  padding: 3rem;
+  align-items: center;
+  min-height: 500px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 2rem;
+    text-align: center;
+  }
+}
+
+.hero-image {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  
+  img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+  
+  &:hover img {
+    transform: scale(1.02);
+  }
+}
+
+.play-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  
+  .hero-image:hover & {
+    opacity: 1;
+  }
+}
+
+.play-button {
+  width: 80px !important;
+  height: 80px !important;
+  border-radius: 50% !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: none !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+  
+  .pi {
+    font-size: 2rem;
+    color: var(--primary-500) !important;
+    margin-left: 4px; // Slight offset for play icon visual centering
+  }
+  
+  &:hover {
+    background: white !important;
+    transform: scale(1.1);
+  }
+}
+
+.hero-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.episode-badge {
+  .badge-text {
+    background: var(--primary-500);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+}
+
+.episode-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--text-color);
+  margin: 0;
+  
+  @media (max-width: 768px) {
+    font-size: 2rem;
+  }
+}
+
+.episode-guests {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  
+  .guests-label {
+    color: var(--text-color-secondary);
+    font-weight: 500;
+  }
+  
+  .guest-names {
+    color: var(--primary-600);
+    font-weight: 600;
+  }
+}
+
+.episode-description {
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: var(--text-color-secondary);
+  margin: 0;
+  max-width: 500px;
+}
+
+.episode-date {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-color-secondary);
+  font-size: 0.875rem;
+  
+  .pi {
+    color: var(--primary-500);
+  }
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  
+  @media (max-width: 768px) {
+    justify-content: center;
+  }
+}
+
+.watch-button {
+  background: var(--primary-500) !important;
+  border: none !important;
+  padding: 0.75rem 2rem !important;
+  font-weight: 600 !important;
+  border-radius: 8px !important;
+  
+  &:hover {
+    background: var(--primary-600) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.episodes-button {
+  padding: 0.75rem 2rem !important;
+  font-weight: 600 !important;
+  border-radius: 8px !important;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.hero-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 4rem;
+  color: var(--text-color-secondary);
+}
+
+.hero-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem;
+  
+  .empty-content {
+    text-align: center;
+    
+    h2 {
+      margin: 1rem 0 0.5rem 0;
+      color: var(--text-color);
+    }
+    
+    p {
+      color: var(--text-color-secondary);
+      margin: 0;
+    }
+  }
+}

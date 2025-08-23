@@ -1,0 +1,81 @@
+<div class="hero-container">
+  <div class="hero-content" *ngIf="!loading && latestEpisode">
+    <div class="hero-image">
+      <img [src]="getEpisodeImage()" [alt]="latestEpisode.title" />
+      <div class="play-overlay" *ngIf="latestEpisode.youTubeLink">
+        <button
+          pButton
+          type="button"
+          icon="pi pi-play"
+          class="play-button"
+          (click)="watchEpisode()"
+          pTooltip="Watch Episode"
+        ></button>
+      </div>
+    </div>
+
+    <div class="hero-info">
+      <div class="episode-badge">
+        <span class="badge-text">LATEST EPISODE</span>
+      </div>
+
+      <h1 class="episode-title">{{ latestEpisode.title }}</h1>
+
+      <div
+        class="episode-guests"
+        *ngIf="latestEpisode.guest1 || latestEpisode.guest2"
+      >
+        <span class="guests-label">Featuring:</span>
+        <span class="guest-names">
+          <span *ngIf="latestEpisode.guest1">{{ latestEpisode.guest1 }}</span>
+          <span *ngIf="latestEpisode.guest1 && latestEpisode.guest2"> & </span>
+          <span *ngIf="latestEpisode.guest2">{{ latestEpisode.guest2 }}</span>
+        </span>
+      </div>
+
+      <p class="episode-description">{{ latestEpisode.description }}</p>
+
+      <div class="episode-date" *ngIf="latestEpisode.publishedDate">
+        <i class="pi pi-calendar"></i>
+        <span>{{ latestEpisode.publishedDate | date : 'mediumDate' }}</span>
+      </div>
+
+      <div class="hero-actions">
+        <button
+          pButton
+          type="button"
+          label="Watch Now"
+          icon="pi pi-play"
+          class="watch-button"
+          (click)="watchEpisode()"
+          *ngIf="latestEpisode.youTubeLink"
+        ></button>
+
+        <button
+          pButton
+          type="button"
+          label="View All Episodes"
+          icon="pi pi-list"
+          class="p-button-outlined episodes-button"
+          routerLink="/posts"
+        ></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-loading" *ngIf="loading">
+    <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
+    <p>Loading latest episode...</p>
+  </div>
+
+  <div class="hero-empty" *ngIf="!loading && !latestEpisode">
+    <div class="empty-content">
+      <i
+        class="pi pi-video"
+        style="font-size: 3rem; color: var(--text-color-secondary)"
+      ></i>
+      <h2>No Episodes Available</h2>
+      <p>Check back soon for the latest episodes of This Week in ZA!</p>
+    </div>
+  </div>
+</div>

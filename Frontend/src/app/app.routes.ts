@@ -35,6 +35,11 @@ export const routes: Routes = [
   },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   {
+    path: 'home',
+    component: HomeComponent,
+    title: 'Home - This Week in ZA',
+  },
+  {
     path: 'authmicrosoft',
     component: AuthMicrosoftComponent,
   },
@@ -253,7 +258,7 @@ export const routes: Routes = [
           routerLink: ['admin/posts'],
           icon: 'pi pi-cog',
         },
-      ], 
+      ],
     },
   },
   {
