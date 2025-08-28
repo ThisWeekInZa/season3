@@ -1,5 +1,115 @@
 <div class="home-container">
-  <p-card>
-    <h2>THIS WEEK IN ZA</h2>
-  </p-card>
+  <!-- Header Section -->
+  <div class="header-section">
+    <h1 class="main-title">This Week in ZA</h1>
+    <h2 class="subtitle">Latest Episode</h2>
+  </div>
+
+  <!-- Main Content Card -->
+  <div class="main-card">
+    <!-- Loading State -->
+    <div class="loading-state" *ngIf="loading">
+      <div class="loading-spinner">
+        <i
+          class="pi pi-spin pi-spinner"
+          style="font-size: 2rem; color: #8b5cf6"
+        ></i>
+        <p>Loading latest episode...</p>
+      </div>
+    </div>
+
+    <!-- Error State -->
+    <div class="error-state" *ngIf="error">
+      <div class="error-content">
+        <i
+          class="pi pi-exclamation-triangle"
+          style="font-size: 3rem; color: #ef4444"
+        ></i>
+        <h3>Oops! Something went wrong</h3>
+        <p>We couldn't load the latest episode. Please try again.</p>
+        <button
+          pButton
+          type="button"
+          label="Try Again"
+          icon="pi pi-refresh"
+          class="p-button-outlined"
+          (click)="retry()"
+        ></button>
+      </div>
+    </div>
+
+    <!-- Content State -->
+    <div class="content-wrapper" *ngIf="!loading && !error && latestEpisode">
+      <!-- Left Section - Video Player -->
+      <div class="video-section">
+        <div class="video-container">
+          <!-- YouTube iframe embed -->
+          <iframe
+            [src]="youtubeUrl"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            class="youtube-iframe"
+          >
+          </iframe>
+
+          <!-- Episode title overlay -->
+          <div class="episode-overlay">
+                          <div class="episode-badge">
+                <i class="pi pi-video"></i>
+                <span>{{ latestEpisode.title }}</span>
+              </div>
+          </div>
+        </div>
+
+        <!-- Watch on YouTube button below video -->
+        <button
+          pButton
+          type="button"
+          label="Watch on YouTube"
+          icon="pi pi-external-link"
+          class="p-button-secondary watch-youtube-btn"
+          (click)="watchOnYouTube()"
+        ></button>
+      </div>
+
+      <!-- Right Section - Episode Details -->
+      <div class="episode-details">
+        <h3 class="episode-title">{{ latestEpisode.title }}</h3>
+
+        <div class="episode-metadata">
+          <div class="metadata-item" *ngIf="latestEpisode.guest1">
+            <i class="pi pi-user"></i>
+            <span>{{ latestEpisode.guest1 }}</span>
+          </div>
+          <div class="metadata-item" *ngIf="latestEpisode.createdAt">
+            <i class="pi pi-calendar"></i>
+            <span>{{ formatDate(latestEpisode.createdAt) }}</span>
+          </div>
+        </div>
+
+        <p class="episode-description">{{ latestEpisode.description }}</p>
+
+        <div class="action-buttons">
+          <button
+            pButton
+            type="button"
+            label="Watch on YouTube"
+            icon="pi pi-play"
+            class="p-button-danger"
+            (click)="watchOnYouTube()"
+          ></button>
+
+          <button
+            pButton
+            type="button"
+            label="All Episodes"
+            icon="pi pi-list"
+            class="p-button-danger"
+            (click)="viewAllEpisodes()"
+          ></button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

@@ -4,6 +4,7 @@ A modern Angular-based frontend application for managing and displaying content 
 
 ## 🚀 Features
 
+- **Podcast Home Page**: Beautiful landing page showcasing the latest episode with YouTube video embedding
 - **User Authentication**: Support for Microsoft Azure AD and AWS Cognito authentication
 - **Multi-tenant Architecture**: Tenant-based user management and content organization
 - **Admin Dashboard**: Comprehensive admin interface for user and tenant management
@@ -219,6 +220,7 @@ ng generate component pages/your-page-name
 - `primeicons` - Icon library
 - `ngx-quill` - Rich text editor
 - `rxjs` - Reactive programming
+- `@angular/common/http` - HTTP client for API communication
 
 ### Development Dependencies
 
