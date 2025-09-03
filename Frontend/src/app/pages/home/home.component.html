@@ -1,5 +1,83 @@
 <div class="home-container">
-  <p-card>
-    <h2>THIS WEEK IN ZA</h2>
-  </p-card>
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1 class="podcast-title">THIS WEEK IN ZA</h1>
+        <p class="podcast-subtitle">
+          Your weekly dose of South African news, culture, and conversations
+        </p>
+        <p class="podcast-description">
+          Join us every week as we dive into the stories that matter most in
+          South Africa. From politics to pop culture, business to braai tips -
+          we've got you covered.
+        </p>
+      </div>
+
+      <!-- Featured Video Section -->
+      <div class="featured-video">
+        <div *ngIf="loading" class="loading-state">
+          <p>Loading latest episode...</p>
+        </div>
+
+        <div *ngIf="!loading && latestEpisode" class="episode-content">
+          <h3>Latest Episode</h3>
+          <h4 class="episode-title">{{ latestEpisode.title }}</h4>
+          <p class="episode-guest" *ngIf="latestEpisode.guest1">
+            Featuring: {{ latestEpisode.guest1 }}
+            <span *ngIf="latestEpisode.guest2"
+              >, {{ latestEpisode.guest2 }}</span
+            >
+          </p>
+          <p class="episode-description">{{ latestEpisode.description }}</p>
+
+          <div
+            class="video-container"
+            *ngIf="getYouTubeEmbedUrl(latestEpisode.youTubeLink)"
+          >
+            <iframe
+              [src]="getYouTubeEmbedUrl(latestEpisode.youTubeLink)"
+              [title]="'This Week in Za - ' + latestEpisode.title"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+            >
+            </iframe>
+          </div>
+        </div>
+
+        <div *ngIf="!loading && !latestEpisode" class="no-episode">
+          <p>No episodes available at the moment. Check back soon!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="about-section">
+    <p-card>
+      <div class="about-content">
+        <h2>About the Show</h2>
+        <p>
+          This Week in Za brings you the most important stories from across
+          South Africa, delivered with insight, humor, and the perspective that
+          only comes from being truly local.
+        </p>
+        <div class="show-stats">
+          <div class="stat">
+            <span class="stat-number">Weekly</span>
+            <span class="stat-label">Episodes</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">Season 3</span>
+            <span class="stat-label">Current Season</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">Za Focus</span>
+            <span class="stat-label">Local Stories</span>
+          </div>
+        </div>
+      </div>
+    </p-card>
+  </section>
 </div>

@@ -1,7 +1,188 @@
 .home-container {
-  padding: 2rem;
+  min-height: 100vh;
+}
+
+.hero-section {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 4rem 2rem;
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
   
-  h2 {
-    margin: 0 0 1rem 0;
+  .hero-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      text-align: center;
+    }
+  }
+  
+  .hero-text {
+    .podcast-title {
+      font-size: 3.5rem;
+      font-weight: 900;
+      margin: 0 0 1rem 0;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      letter-spacing: -0.02em;
+      
+      @media (max-width: 768px) {
+        font-size: 2.5rem;
+      }
+    }
+    
+    .podcast-subtitle {
+      font-size: 1.5rem;
+      font-weight: 300;
+      margin: 0 0 2rem 0;
+      opacity: 0.9;
+      
+      @media (max-width: 768px) {
+        font-size: 1.2rem;
+      }
+    }
+    
+    .podcast-description {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      opacity: 0.8;
+      margin: 0;
+    }
+  }
+  
+  .featured-video {
+    .loading-state {
+      text-align: center;
+      padding: 2rem;
+      opacity: 0.8;
+      
+      p {
+        font-size: 1.1rem;
+        margin: 0;
+      }
+    }
+    
+    .episode-content {
+      h3 {
+        font-size: 1.5rem;
+        margin: 0 0 1rem 0;
+        text-align: center;
+      }
+      
+      .episode-title {
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin: 0 0 0.5rem 0;
+        text-align: center;
+        color: #fff;
+      }
+      
+      .episode-guest {
+        font-size: 1.1rem;
+        margin: 0 0 1rem 0;
+        text-align: center;
+        opacity: 0.9;
+        font-style: italic;
+      }
+      
+      .episode-description {
+        font-size: 1rem;
+        line-height: 1.5;
+        margin: 0 0 1.5rem 0;
+        text-align: center;
+        opacity: 0.8;
+      }
+    }
+    
+    .video-container {
+      position: relative;
+      width: 100%;
+      height: 0;
+      padding-bottom: 56.25%; /* 16:9 aspect ratio */
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      
+      iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+    }
+    
+    .no-episode {
+      text-align: center;
+      padding: 2rem;
+      opacity: 0.8;
+      
+      p {
+        font-size: 1.1rem;
+        margin: 0;
+      }
+    }
+  }
+}
+
+.about-section {
+  padding: 4rem 2rem;
+  background: #f8f9fa;
+  
+  .about-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    
+    h2 {
+      font-size: 2.5rem;
+      margin: 0 0 2rem 0;
+      color: #333;
+    }
+    
+    p {
+      font-size: 1.2rem;
+      line-height: 1.6;
+      color: #666;
+      margin: 0 0 3rem 0;
+    }
+    
+    .show-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+      
+      .stat {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 1.5rem;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        
+        .stat-number {
+          font-size: 1.5rem;
+          font-weight: 700;
+          color: #667eea;
+          margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+          font-size: 1rem;
+          color: #666;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+        }
+      }
+    }
   }
 } 
