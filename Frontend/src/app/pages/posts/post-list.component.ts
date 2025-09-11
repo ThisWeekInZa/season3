@@ -64,7 +64,7 @@ export class PostListComponent {
       deleteItem: (params, item) => this.postService.deletePost(item.id),
     },
     onEdit: (item) => {
-      this.router.navigate(['/episodes', item.id]);
+      this.router.navigate(['/admin/posts', item.id]);
     },
     customToolbarItems: [
       {
@@ -77,5 +77,5 @@ export class PostListComponent {
     ],
   };
 
-  constructor(private postService: PostService, private router: Router) {}
+  constructor(private readonly postService: PostService, private readonly router: Router) { }
 }

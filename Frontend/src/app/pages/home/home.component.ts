@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule, Router } from '@angular/router';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { AvatarModule } from 'primeng/avatar';
@@ -14,6 +15,7 @@ import { QueryOptions } from '../../components/common-dto/query.dto';
   standalone: true,
   imports: [
     CommonModule,
+    RouterModule,
     CardModule,
     ButtonModule,
     AvatarModule,
@@ -29,8 +31,9 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private sanitizer: DomSanitizer,
-    private postService: PostService
-  ) {}
+    private postService: PostService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.loadLatestEpisode();
@@ -86,8 +89,8 @@ export class HomeComponent implements OnInit {
   }
 
   viewAllEpisodes() {
-    // Navigate to episodes page or open episodes list
-    console.log('Navigate to all episodes');
+    // Navigate to posts page to show all episodes
+    this.router.navigate(['/posts']);
   }
 
   retry() {

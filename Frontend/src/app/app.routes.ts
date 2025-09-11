@@ -18,7 +18,7 @@ import { AdminTenantDetailComponent } from './pages/admin/admin-tenant-detail/ad
 import { AdminTenantUsersListComponent } from './pages/admin/admin-tenant-users-list/admin-tenant-users-list.component';
 import { AuthCognitoComponent } from './pages/auth/auth-cognito/auth-cognito.component';
 import { PostListComponent } from './pages/posts/post-list.component';
-import { PostsComponent } from './pages/posts/posts.component';
+import { PostDetailComponent } from './pages/posts/post-detail.component';
 
 export const routes: Routes = [
   { path: 'auth', component: AuthComponent },
@@ -34,6 +34,17 @@ export const routes: Routes = [
     title: 'Notifications',
   },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
+  {
+    path: 'home',
+    component: HomeComponent,
+    data: {
+      title: 'Home',
+      icon: 'pi pi-home',
+      breadcrumb: [
+        { label: 'Home', routerLink: ['/home'], icon: 'pi pi-home' },
+      ],
+    },
+  },
   {
     path: 'authmicrosoft',
     component: AuthMicrosoftComponent,
@@ -241,6 +252,26 @@ export const routes: Routes = [
     },
   },
   {
+    path: 'posts/:id',
+    component: PostDetailComponent,
+    data: {
+      title: 'Post Details',
+      icon: 'pi pi-video',
+      breadcrumb: [
+        {
+          label: 'Posts',
+          routerLink: ['/posts'],
+          icon: 'pi pi-video',
+        },
+        {
+          label: 'Post Details',
+          routerLink: ['/posts', ':id'],
+          icon: 'pi pi-info-circle',
+        },
+      ],
+    },
+  },
+  {
     path: 'admin/posts',
     component: PostListComponent,
     title: 'Episodes Admin',
@@ -253,7 +284,27 @@ export const routes: Routes = [
           routerLink: ['admin/posts'],
           icon: 'pi pi-cog',
         },
-      ], 
+      ],
+    },
+  },
+  {
+    path: 'admin/posts/:id',
+    component: PostDetailComponent,
+    data: {
+      title: 'Episode Details',
+      icon: 'pi pi-cog',
+      breadcrumb: [
+        {
+          label: 'Episodes Admin',
+          routerLink: ['/admin/posts'],
+          icon: 'pi pi-cog',
+        },
+        {
+          label: 'Episode Details',
+          routerLink: ['/admin/posts', ':id'],
+          icon: 'pi pi-info-circle',
+        },
+      ],
     },
   },
   {

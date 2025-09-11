@@ -1,0 +1,327 @@
+---
+alwaysApply: true
+description: Frontend architecture and development guidelines for This Week In Za Angular application
+---
+
+# Frontend Architecture Guidelines
+
+## Technology Stack
+
+This is an **Angular 19** frontend application with the following key technologies:
+
+- **Angular 19**: Latest Angular framework with standalone components
+- **PrimeNG**: UI component library for Angular
+- **PrimeFlex**: CSS utility library
+- **RxJS**: Reactive programming library
+- **TypeScript**: Type-safe JavaScript
+- **SCSS**: Advanced CSS preprocessing
+- **Jest**: Testing framework
+- **ngx-quill**: Rich text editor
+
+## Project Structure
+
+```
+src/app/
+├── components/          # Reusable UI components
+│   ├── dashboard/       # Dashboard components
+│   ├── data-grid/       # Data grid components
+│   ├── header/          # Header component
+│   ├── item-detail/     # Item detail components
+│   ├── item-list/       # List components
+│   ├── item-selector/   # Selection components
+│   ├── page-toolbar/    # Toolbar components
+│   └── select-dialog/   # Dialog components
+├── pages/               # Page components
+│   ├── admin/           # Admin pages
+│   ├── auth/            # Authentication pages
+│   ├── home/            # Home page
+│   ├── posts/           # Content pages
+│   ├── profile/         # User profile
+│   └── users/           # User management
+├── services/            # Application services
+├── services-mock/       # Mock services for development
+├── dto/                 # Data Transfer Objects
+├── guards/              # Route guards
+├── pipes/               # Custom pipes
+└── config/              # Configuration files
+```
+
+## Component Architecture
+
+### Base Components (Always Use These)
+
+**DO NOT create new modules. All components should be standalone.**
+
+Use these base components for all pages:
+
+1. **ItemList** ([src/app/components/item-list/item-list-component.ts](mdc:src/app/components/item-list/item-list-component.ts))
+
+   - For all list/table pages
+   - Handles pagination, sorting, search
+   - Configure with `ItemListConfig`
+
+2. **ItemDetail** ([src/app/components/item/detail/item-detail-component.ts](mdc:src/app/components/item/detail/item-detail-component.ts))
+
+   - For all detail/edit forms
+   - Handles CRUD operations
+   - Configure with `ItemDetailConfig`
+
+3. **Dashboard** ([src/app/components/dashboard/dashboard-component.ts](mdc:src/app/components/dashboard/dashboard-component.ts))
+   - For all dashboard pages
+   - Handles widgets, charts, KPIs
+   - Configure with `DashboardConfig`
+
+### Page Types
+
+#### List Pages
+
+- Use `ItemListComponent` with `ItemListConfig`
+- Example: User list, project list, client list
+- Must include pagination with skip/take
+- Configure columns with: field, header, type, sortable
+
+#### Detail/Edit Pages
+
+- Use `ItemDetailComponent` with `ItemDetailConfig`
+- Example: User details, project details, client details
+- Form fields: key, label, type, required, options
+- Support create, update, delete operations
+
+#### Dashboard Pages
+
+- Use `DashboardComponent` with `DashboardConfig`
+- Example: Analytics dashboard, client dashboard
+- Widget types: counter, chart, table, list, heatmap, card
+
+## Data Transfer Objects (DTOs)
+
+### File Location
+
+All DTOs go in `src/app/dto/`
+
+### DTO Structure
+
+```typescript
+export interface UserDto {
+  username: string;
+  password: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  role: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+```
+
+### Important Note on IDs
+
+DTOs from backend do NOT have an id. The id is on the list item, not the DTO itself.
+
+Use `QueryResult<T>` and `QueryResultItem<T>` from [src/app/components/query.dto.ts](mdc:src/app/components/query.dto.ts):
+
+```typescript
+export interface QueryResultItem<T> {
+  item: T;
+  id: string;
+}
+
+export interface QueryResult<T> {
+  items: QueryResultItem<T>[];
+  total: number;
+  take: number;
+  skip: number;
+}
+```
+
+## Services
+
+### File Location
+
+- Services: `src/app/services/`
+- Mock Services: `src/app/services-mock/`
+
+### Service Pattern
+
+```typescript
+@Injectable({
+  providedIn: "root",
+})
+export class AccountService {
+  constructor(private backend: BackendService, private http: HttpClient) {}
+
+  getAccounts(queryParams: QueryOptions): Observable<QueryResult<UserDto>> {
+    return this.backend.getQuery<UserDto>("account", queryParams);
+  }
+
+  getAccount(id: string): Observable<UserDto> {
+    return this.backend.get<UserDto>(`account/${id}`);
+  }
+
+  createAccount(user: UserDto): Observable<ProcessResult> {
+    user.createdAt = undefined;
+    user.updatedAt = undefined;
+    return this.backend.post<ProcessResult>("account", user);
+  }
+
+  updateAccount(id: string, user: UserDto): Observable<ProcessResult> {
+    return this.backend.put<ProcessResult>(`account/${id}`, user);
+  }
+
+  deleteAccount(id: string): Observable<ProcessResult> {
+    return this.backend.delete<ProcessResult>(`account/${id}`);
+  }
+}
+```
+
+### Service Naming
+
+- Use **singular** names (e.g., `AccountService`, not `AccountsService`)
+- Backend endpoints are singular
+
+### Mock Services
+
+- Create mock services in `services-mock/` folder
+- Name with `Mock` prefix (e.g., `MockAccountService`)
+- Configure in `app.config.ts` for environment switching
+
+## Common Imports
+
+Always use these common imports for components:
+
+```typescript
+imports: [
+  CommonModule,
+  RouterModule,
+  ButtonModule,
+  ToastModule,
+  TooltipModule,
+  ToolbarModule,
+];
+```
+
+## Routes
+
+### Route Structure
+
+```typescript
+{
+  path: 'path',
+  component: ComponentName,
+  canActivate: [authGuard],
+  title: 'Page Title',
+  data: {
+    title: 'Page Title',
+    icon: 'pi pi-icon',
+    breadcrumb: [
+      {
+        label: 'Label',
+        routerLink: ['/path'],
+        icon: 'pi pi-icon',
+      },
+    ],
+  },
+}
+```
+
+### Route Patterns
+
+- **List routes**: `'entities'` (e.g., `'projects'`, `'users'`)
+- **Detail routes**: `'entities/:id'` (e.g., `'projects/:id'`, `'users/:id'`)
+
+## Testing
+
+### Technology Stack
+
+- **Jest**: Testing framework
+- **Angular Testing Utilities**: Component and service testing
+
+### Service Test Pattern
+
+```typescript
+import { TestBed } from "@angular/core/testing";
+import { HttpClientTestingModule } from "@angular/common/http/testing";
+import { of } from "rxjs";
+
+describe("ServiceName", () => {
+  let service: ServiceName;
+  let backendService: BackendService;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
+      providers: [
+        ServiceName,
+        { provide: BackendService, useValue: mockBackendService },
+      ],
+    });
+    service = TestBed.inject(ServiceName);
+    backendService = TestBed.inject(BackendService);
+    jest.clearAllMocks();
+  });
+
+  it("should be created", () => {
+    expect(service).toBeTruthy();
+  });
+});
+```
+
+### Testing Guidelines
+
+- **Never call the backend** in tests - always mock
+- **One test per method** is sufficient
+- **Do not verify mocked methods are called**
+- **Do not update tested code** - only test code
+- Ensure DTOs match real DTOs exactly
+
+## Development Commands
+
+```bash
+# Development mode (with live backend)
+npm start
+
+# Mock mode (no backend required)
+npm run start:mock
+
+# Production build
+npm run build
+
+# Watch mode
+npm run watch
+
+# Testing
+npm test
+```
+
+## Environment Configuration
+
+- **Development**: `environment.ts` - local development
+- **Mock**: `environment.mock.ts` - mock services
+- **Production**: `environment.prod.ts` - production
+
+## Authentication
+
+Supports two authentication providers:
+
+1. **Microsoft Azure AD**: Route `/authmicrosoft`
+2. **AWS Cognito**: Route `/authcognito`
+
+## Key Principles
+
+1. **Always use base components** - configure, don't create new ones
+2. **Standalone components only** - no modules
+3. **TypeScript for type safety**
+4. **Proper error handling**
+5. **Mock services for development**
+6. **Consistent naming conventions**
+7. **Role-based access control**
+8. **Multi-tenant architecture support**
+
+## File Locations Summary
+
+- **DTOs**: `src/app/dto/`
+- **Services**: `src/app/services/`
+- **Components**: `src/app/components/` (base components only)
+- **Pages**: `src/app/pages/`
+- **Guards**: `src/app/guards/`
+- **Routes**: `src/app/app.routes.ts`

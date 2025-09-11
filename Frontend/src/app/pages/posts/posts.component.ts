@@ -9,7 +9,6 @@ import { InputTextModule } from 'primeng/inputtext';
 import { TooltipModule } from 'primeng/tooltip';
 import { DomSanitizer } from '@angular/platform-browser';
 import { QueryResultItem } from '../../components/common-dto/query.dto';
-import { SafeUrlPipe } from '../../pipes/safe-url.pipe';
 import { PostDto } from '../../dto/post.dto';
 import { PostService } from '../../services/post.service';
 
@@ -337,10 +336,10 @@ export class PostsComponent implements OnInit {
   searchTimeout: any;
 
   constructor(
-    private postService: PostService,
-    private router: Router,
-    private sanitizer: DomSanitizer
-  ) {}
+    private readonly postService: PostService,
+    private readonly router: Router,
+    private readonly sanitizer: DomSanitizer
+  ) { }
 
   ngOnInit(): void {
     this.loadEpisodes();
@@ -448,7 +447,7 @@ export class PostsComponent implements OnInit {
   }
 
   viewEpisodeDetails(episodeId: string): void {
-    this.router.navigate(['/episodes', episodeId]);
+    this.router.navigate(['/posts', episodeId]);
   }
 
   openYouTubeLink(youtubeLink: string, event: Event): void {
